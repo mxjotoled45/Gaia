@@ -23,8 +23,10 @@ async def i_need_help(ctx):
 
 schedule = {
     "lunes": "Recolección de basura orgánica a las 9:00 AM",
+    "martes": "No hay recolección para el dia de hoy",
     "miercoles": "Recolección de reciclaje a las 9:00 AM",
-    "viernes": "Recolección de desechos generales a las 9:00 AM"
+    "jueves": "No hay recolección para el dia de hoy",
+    "viernes": "Recolección de desechos generales a las 9:00 AM",   
 }
 
 # Diccionario para ayudar a clasificar los desechos
@@ -36,16 +38,11 @@ waste_classification = {
     "baterias": "Desechos peligrosos",
     "electronicos": "Desechos electrónicos"
 }
-
-@bot.command(name='horario')
+@bot.command(name='Horario')
 async def send_schedule(ctx):
-   # day = day.lower()
-   # if day in schedule:
         await ctx.send(schedule)
-    #else:
-        #await ctx.send("No hay un horario de recolección para ese día.")
-
-@bot.command(name='lunes')
+  
+@bot.command(name='Lunes')
 async def send_lunes(ctx):
     day = 'lunes'
     if day in schedule:
@@ -61,7 +58,7 @@ async def send_lunes(ctx):
     else:
         await ctx.send("No hay un horario de recolección para ese día.")
 
-@bot.command(name='miercoles')
+@bot.command(name='Miercoles')
 async def send_lunes(ctx):
     day = 'miercoles'
     if day in schedule:
@@ -69,9 +66,21 @@ async def send_lunes(ctx):
     else:
         await ctx.send("No hay un horario de recolección para ese día.")
 
-@bot.command(name='clasificar')
-async def classify_waste(ctx,  waste_item):
-    classification = waste_classification.get(waste_item, "No estoy seguro de dónde va este desecho.")
-    await ctx.send(f'El desecho "{waste_item}" debe ir a: {classification}.')
+@bot.command(name='Jueves')
+async def send_lunes(ctx):
+    day = 'jueves'
+    if day in schedule:
+        await ctx.send(schedule[day])
+    else:
+        await ctx.send("No hay un horario de recolección para ese día.")
 
-bot.run("TOKEN")
+@bot.command(name='Clasificar')
+async def classify_waste(ctx,  waste_item):
+    if waste_item in waste_classification:
+        await ctx.send(waste_classification[waste_item])
+    else:
+        await ctx.send("No estoy seguro de dónde va este desecho")
+
+
+    
+bot.run("Token")
